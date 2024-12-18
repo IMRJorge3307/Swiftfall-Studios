@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visits Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 200px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="webVisits">Visits: 0</div>
+
+    <script>
+        function animateNumber(elementId, targetValue, duration) {
+            const element = document.getElementById(elementId);
+            let startValue = 0;
+            const increment = Math.ceil(targetValue / (duration / 16));
+            const interval = setInterval(() => {
+                startValue += increment;
+                if (startValue >= targetValue) {
+                    startValue = targetValue;
+                    clearInterval(interval);
+                }
+                element.innerText = `Visits: ${startValue}`;
+            }, 16);
+        }
+
+        const targetWebVisits = parseInt(localStorage.getItem('webVisits')) || 0;
+        const newWebVisits = targetWebVisits + 1;
+
+        localStorage.setItem('webVisits', newWebVisits);
+
+        animateNumber("webVisits", newWebVisits, 2000);
+    </script>
+</body>
+</html>
